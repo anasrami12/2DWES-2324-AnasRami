@@ -1,0 +1,31 @@
+<HTML>
+<HEAD> 
+    <TITLE>FORMULARIO BASE</TITLE>
+</HEAD>
+<BODY>
+    <h1>DATOS ALUMNOS</h1>
+    <form name='mi_formulario' action='ej6.php' method='post'>
+        
+            <label for="nombre">Nombre:</label>
+            <input type="text"  name="nombre" required>*Obligatorio
+            <br>
+            <label for="apellido1">Apellido1:</label>
+            <input type="text"  name="apellido" >
+            <br>
+            <label for="apellido2">Apellido2:</label>
+            <input type="text"name="apellido2" >
+            <br>
+            <label for="email">Correo electronico:</label>
+            <input type="email" name="email" required>*Obligatorio
+            <br>
+            Sexo: 
+            <input type='radio' checked name='sexo' value='hombre'required>Hombre
+            <input type='radio' name='sexo' value='mujer'>Mujer *Obligatorio</br>
+            
+    
+            
+            <input type="submit" value="Enviar">
+        <input type="reset" value="borrar">
+    </form>
+    </BODY>
+</HTML>
