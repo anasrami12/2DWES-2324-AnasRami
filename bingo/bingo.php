@@ -25,13 +25,15 @@ while (count($jugador1['carton1']) < 15) {
 ///////////////Operaciones//////////////////////////////////////////
 
 $aciertos=0;
+$cont=0;
 while ($aciertos<15) {
-    for ($i=0; $i <60; $i++) { 
-        if (in_array($bombo[$i], $jugador1['carton1'])) {
+        if (in_array($bombo[$cont], $jugador1['carton1'])) {
             $aciertos++;
+            $cont++;
     
         }
-    }
+    
+    
 }
 
 echo $aciertos;
