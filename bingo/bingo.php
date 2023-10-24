@@ -12,40 +12,41 @@ function generarBombo(){
 return $bombo;
 }
 
-function generarJugadoresYCarton(){
-    //generamos los jugadores
-    $jugadores = array('jugador1','','');
-    //en cada jugador generamos los cartones
-    $jugadores['jugador1']= array('carton1','carton2','carton3');
-    //rellenamos cada carton de numeros aleatorios del 1-60
-    $jugador1['carton1'] = array();
-    $jugador1['carton2'] = array();
-    $jugador1['carton3'] = array();
-    //mientras el tamaño de carton1 sea menor a 15 se ejecutara el while
-    $cartones = 3;
-for ($i = 1; $i <= $cartones; $i++) {
-    while (count($jugador1['carton' . $i]) < 15) {
-        $random = rand(1, 60);
-        if (!in_array($random, $jugador1['carton' . $i])) {
-            $jugador1['carton' . $i][] = $random;
-        }
-    }
-}
-
-
-
-    return $jugador1['carton1'];
+function generarJugadoresYCarton($numeroJugadores, $numeroCartones) {
+    // creamos los arrays
+    $jugadores = array();
     
+    for ($j = 1; $j <= $numeroJugadores; $j++) {
+        // generamos los cartones
+        $cartones = array();
+        for ($c = 1; $c <= $numeroCartones; $c++) {
+            $carton = array();
+            while (count($carton) < 15) {
+                $random = rand(1, 60);
+                if (!in_array($random, $carton)) {
+                    $carton[] = $random;
+                }
+            }
+            $cartones[] = $carton;
+        }
 
+        // añadimos al jugador y sus cartones al array de jugadores
+        $jugadores["jugador$j"] = $cartones;
+    }
 
+    return $jugadores;
 }
 
 
+ var_dump(generarJugadoresYCarton(3,3)) ;
 ////////////////////////////////////////////////////////////////////
 ///////////////Operaciones//////////////////////////////////////////
 function comprobarAciertos(){
 $bombo=generarBombo();
-$jugador1=generarJugadoresYCarton();
+$jugador=generarJugadoresYCarton();
+$player1=$jugador['jugador1'];
+$carton=$player1['carton1'];
+var_dump($player1);
     $aciertos=0;
     $cont=0;
     while ($aciertos<15) {
@@ -63,6 +64,6 @@ $jugador1=generarJugadoresYCarton();
     return $aciertos;
 }
 
-echo comprobarAciertos();
+
 
 ?>
