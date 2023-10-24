@@ -29,10 +29,10 @@ $cont=0;
 while ($aciertos<15) {
         if (in_array($bombo[$cont], $jugador1['carton1'])) {
             $aciertos++;
-            $cont++;
+          
     
         }
-    
+      $cont++;
     
 }
 
