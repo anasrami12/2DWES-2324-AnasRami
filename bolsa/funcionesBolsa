@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Archivos</title>
+</head>
+<body>
+    <h2>Bolsa de Valores</h2>
+    <form method="post">
+        <label for="archivo">Introduce el valor bursatil que desea ver:</label><br>
+        <input type="text" name="valor" placeholder="Valor">
+        <br>
+        <input type="Submit" name='boton1' value='Visualizar'>
+        <input type="Submit" name='boton2' value='Mostrar todos los valores'>
+        <input type="Reset" name='boton3' value='Borrar'>
+        
+    </form>
+
+
+<?php
+if (isset($_POST['boton2'])) {
+function bolsa1(){
+    fopen('ibex35.txt','r');
+$filas=file('ibex35.txt');
+
+for ($i=0; $i < count($filas) ; $i++) { 
+    $filas[$i]=substr($filas[$i],0,100);
+    echo $filas[$i];
+    echo '<br>';
+}
+}
+echo bolsa1();
+}
+
+if (isset($_POST['boton1'])) {
+
+    
+
+    $valor=$_POST['valor'];
+    function bolsa2($bolsa){
+        $filas=file('ibex35.txt');
+    $bolsavalores=[];
+    $valores = array("Inicio","ACCIONA", "ACERINOX", "ACS", "AENA", "AMADEUS IT GROUP", "ARCELORMITTAL", "BANCO SABADELL", "BANKIA", "BANKINTER", "BBVA", "CAIXABANK", "CELLNEX TELECOM", "CIE. AUTOMOTIVE", "COLONIAL", "DIA", "ENAGAS", "ENDESA", "FERROVIAL", "GRIFOLS", "IAG", "IBERDROLA", "INDITEX", "INDRA", "MAPFRE", "MEDIASET", "MELIA HOTELS", "MERLIN PROP.", "NATURGY", "RED ELECTRICA", "REPSOL", "SANTANDER", "SIEMENS GAMESA", "TECNICAS REUNIDAS", "TELEFONICA", "VISCOFAN");
+    foreach ($valores as $i => $valor) {
+        $bolsavalores[$valor] = $filas[$i];
+    }
+    echo $bolsavalores["$bolsa"];
+    }
+    echo bolsa2($valor);
+
+
+
+
+
+
+
+}
+?>
