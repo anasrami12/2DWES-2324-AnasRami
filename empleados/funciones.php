@@ -26,7 +26,7 @@
         $nombre = $_POST['nombre'];
         $stmt->execute();
     
-        echo "New records created successfully";
+        echo "Departamento creado";
         }
     catch(PDOException $e)
         {
