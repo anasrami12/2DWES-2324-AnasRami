@@ -90,5 +90,24 @@ function insertaremple($servername,$username,$password,$dbname){
         }
     $conn = null;
 }
+function selectEmpleado($servername,$dbname,$username,$password){
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$sql = "SELECT dni, nombre, apellidos FROM empleado";
+
+
+$consulta = $conn->prepare($sql);
+
+
+$consulta->execute();
+
+
+$filas = $consulta->fetchAll(PDO::FETCH_ASSOC);
+foreach ($filas as $empleado) {
+echo "<option value='{$empleado['dni']}'>{$empleado['nombre']} {$empleado['apellidos']}</option>";
+} 
+echo "</select>";
+echo "<br>";
+}
 ?>
