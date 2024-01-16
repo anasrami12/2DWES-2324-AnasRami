@@ -9,7 +9,7 @@
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php
     session_start();
-
+var_dump($_SESSION);
     echo "<table border='1'>";
     echo "<tr>";
     echo "<th>Productos</th>";
