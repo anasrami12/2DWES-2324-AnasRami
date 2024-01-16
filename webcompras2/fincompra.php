@@ -9,6 +9,9 @@
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php
     session_start();
+if (!isset($_SESSION['usuario'])) {
+        header( 'Location: nologin.html');
+      }
 var_dump($_SESSION);
     echo "<table border='1'>";
     echo "<tr>";
