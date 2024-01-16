@@ -1,15 +1,15 @@
 <?php
-if (!isset($_COOKIE)) {
+session_start();
+if (!isset($_SESSION['usuario'])) {
     echo 'Acceso denegado: Sesion no iniciada';
 }
 else{
 
     echo "<form method='POST'>";
-    $usuario = $_GET['usuario'];
-   
-    echo "Bienvenido $usuario";
+
+    echo "Bienvenido  ". $_SESSION['usuario'];
     echo "<br>";
-    echo "<a href='#'>Compra de productos</a>";
+    echo "<a href='comprocli.php'>Compra de productos</a>";
     echo "<br>";
     echo "<a href='#'>Consulta de compras</a>";
     echo "<br>";
@@ -19,7 +19,7 @@ else{
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         session_unset();
         session_destroy();
-        setcookie(session_name($usuario), '', time() - 3600, '/');
+        setcookie(session_name('PHPSESSID'), '', time() - 3600, '/');
         header('Location: comlogincli.php');
         exit;
     }

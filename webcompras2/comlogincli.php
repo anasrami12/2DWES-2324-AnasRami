@@ -19,11 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!empty($info)) {
           $usuario = $info[0]['usuario'];
-          session_name($usuario);
+         // session_name($usuario);
+         
           session_start();
-      
+          $_SESSION['usuario']=$usuario;
 
-          header('Location: sesionini.php?usuario='.urlencode($usuario));
+          header('Location: sesionini.php');
           exit;
       } else {
           echo "Usuario o contraseña incorrectos";
