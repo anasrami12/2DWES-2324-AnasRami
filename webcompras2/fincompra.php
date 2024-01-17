@@ -115,11 +115,14 @@
 </form>
 <?php
 if (isset($_POST['enviar'])) {
+    $_SESSION['compra']=array($_SESSION['productos'],$_SESSION['cantidades']);
     if (isset($_SESSION['carrito'])) {
     foreach ($_SESSION['cantidades'] as $key => $cant) {
         $id = $_SESSION['carrito'][$key];
         cantidad($id, $cant); 
     }
+
+  
     unset($_SESSION['carrito']);
     unset($_SESSION['productos']);
     unset($_SESSION['cantidades']);

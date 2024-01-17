@@ -89,7 +89,7 @@ else{
     echo "<br>";
     echo "<a href='comprocli.php'>Compra de productos</a>";
     echo "<br>";
-    echo "<a href='#'>Consulta de compras</a>";
+    echo "<a href='histcompras.php'>Consulta de compras</a>";
     echo "<br>";
     echo "<input type='submit' name='logoff' value='Cerrar Sesion'>";
     echo "</form>";
