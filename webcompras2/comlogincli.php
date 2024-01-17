@@ -50,21 +50,89 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <title>Alta Categoria</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(45deg, #3498db, #8e44ad, #3498db, #8e44ad);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s infinite;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
+
+    form {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+      color: green;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     label {
       display: block;
       margin-bottom: 8px;
+      color: #333;
     }
-    input, button {
+    input {
+      width: 100%;
+      padding: 10px;
       margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      background: #2ecc71;
+      background-image: linear-gradient(45deg, #2ecc71, #27ae60);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #27ae60;
+      background-image: linear-gradient(45deg, #27ae60, #2ecc71);
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   </style>
-  </head>
+</head>
 <body>
-<h2>Login</h2>
+
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+  <h2>Login</h2>
     <label for="user">Nombre de usuario </label>
     <input type="text" id="user" name="user" required>
     <br>

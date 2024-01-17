@@ -3,11 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sesión no iniciada</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #3498db, #8e44ad, #3498db, #8e44ad);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s infinite;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+        }
+
+        p {
+            color: #fff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Sesion no iniciada</h2>
-    <p>Haga click aqui para <a href="comregcli.php">registrarse</a> o <a href="comlogincli.php">iniciar sesion</a></p>
-    
+    <h2>Sesión no iniciada</h2>
+    <p>Haga clic aquí para <a href="comregcli.php">registrarse</a> o <a href="comlogincli.php">iniciar sesión</a></p>
 </body>
 </html>

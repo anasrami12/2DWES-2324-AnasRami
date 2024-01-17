@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión / Registrarse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #3498db, #8e44ad, #3498db, #8e44ad);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s infinite;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin: 10px;
+            cursor: pointer;
+            background: #2ecc71;
+            background-image: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #27ae60;
+            background-image: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bienvenido</h1>
+        <div class="button-container">
+            <a href="./comlogincli.php" class="button">Iniciar Sesión</a>
+            <a href="./comregcli.php" class="button">Registrarse</a>
+        </div>
+    </div>
+    
+    </body>
+    </html>
