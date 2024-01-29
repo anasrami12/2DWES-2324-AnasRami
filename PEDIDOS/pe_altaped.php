@@ -23,7 +23,7 @@
 <input type="number" name="cantidad"  id="cantidad">
 <br>
 <input type="submit" name="validar" value="Añadir al Carrito">
-<input type="submit" name="compra" value="Finalizar compra">
+<input type="submit" name="compra" id="compra"  value="Finalizar compra">
 </form>
 <?php
 if (isset($_POST['validar'])) {
@@ -31,6 +31,31 @@ if (isset($_POST['validar'])) {
     $quantity=$_POST['cantidad'];
     stockCheck($code,$quantity);
 }
+if (isset($_POST['compra'])) {
+if (isset($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $clave => $infoProducto) {     
+        amount($infoProducto['product'],$infoProducto['quantity']);
+            }
+}else {
+    echo 'Añada productos';
+}
+   if (isset($_SESSION['amount'])) {
+    $final= array_sum($_SESSION['amount']);
+    echo "Total de la compra: ". $final;
+    echo "<br>";
+    disboton();
+   readypay();
+   }
+   
+
+}
+if (isset($_POST['confirm'])) {
+    regexNumber($_POST['checknum']);
+
+
+    
+    
+   }
 
 ?>
 </body>
