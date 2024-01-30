@@ -32,29 +32,29 @@ if (isset($_POST['validar'])) {
     stockCheck($code,$quantity);
 }
 if (isset($_POST['compra'])) {
-if (isset($_SESSION['carrito'])) {
-    foreach ($_SESSION['carrito'] as $clave => $infoProducto) {     
+    if (isset($_SESSION['carrito'])) {
+        foreach ($_SESSION['carrito'] as $clave => $infoProducto) {     
         amount($infoProducto['product'],$infoProducto['quantity']);
             }
-}else {
+    }else {
     echo 'Añada productos';
-}
+    }
+
    if (isset($_SESSION['amount'])) {
     $final= array_sum($_SESSION['amount']);
     echo "Total de la compra: ". $final;
     echo "<br>";
     disboton();
    readypay();
+   
    }
    
 
 }
 if (isset($_POST['confirm'])) {
+    $_SESSION['amount']= array();
+   $final=0;
     regexNumber($_POST['checknum']);
-
-
-    
-    
    }
 
 ?>
