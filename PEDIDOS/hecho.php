@@ -9,11 +9,12 @@
     <?php
     include 'functions.php';
     session_start();
-dates();
-        
+    dates();
+        var_dump($_SESSION['carrito']);
         foreach ($_SESSION['carrito'] as $clave => $infoProducto) {     
             decreaseStock($infoProducto['product'],$infoProducto['quantity']);
                 }
+                $_SESSION['carrito'] = array();
     ?>
     <h3>Pedido Realizado</h3>
     <a href="./pe_inicio.php">Volver al inicio</a>

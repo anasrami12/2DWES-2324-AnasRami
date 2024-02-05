@@ -94,39 +94,37 @@ function generateOrderNumber($conn, $customernum) {
     return $result['newOrderNumber'];
 }
 
-// Función principal para realizar un pedido
 function dates(){
     $database_info = datadb();
     $servername = $database_info['servername'];
     $username = $database_info['username'];
     $password = $database_info['password'];
     $dbname = $database_info['dbname'];
-    
+
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $customernum = $_SESSION['customernum'];
+        $conn->beginTransaction();
 
-        // Generar el nuevo orderNumber
+        $customernum = $_SESSION['customernum'];
         $newOrderNumber = generateOrderNumber($conn, $customernum);
 
-        // Insertar el nuevo pedido
         $stmt = $conn->prepare("INSERT INTO orders (customerNumber, orderNumber, orderDate, requiredDate, shippedDate, status)
             VALUES (:customernum, :newOrderNumber, NOW(), NOW(), NULL, 'Pending')");
         $stmt->bindParam(':customernum', $customernum);
         $stmt->bindParam(':newOrderNumber', $newOrderNumber);
         $stmt->execute();
+        $conn->commit();
 
         echo "Nuevo pedido realizado"; 
-        $_SESSION['carrito'] = array();
     } catch (PDOException $e) {
+        $conn->rollBack();
         echo "Error: " . $e->getMessage();
     } finally {
         $conn = null;
     }
 }
 
-// Resto del código
 
 
 function regexNumber($cadena){
@@ -262,24 +260,31 @@ function disBoton(){
     echo '</script>';
 }
 
-function decreaseStock($product,$amount){
+function decreaseStock($product, $amount){
     $database_info = datadb();
     $servername = $database_info['servername'];
     $username = $database_info['username'];
     $password = $database_info['password'];
     $dbname = $database_info['dbname'];
+
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+
         $stmt = $conn->prepare("UPDATE products SET quantityInStock = quantityInStock - :amount WHERE productCode = :productCode;");
-        $stmt -> bindParam(':productCode', $product);
-        $stmt -> bindParam(':amount', $amount);
+        $stmt->bindParam(':productCode', $product);
+        $stmt->bindParam(':amount', $amount);
         $stmt->execute(); 
+        $conn->commit();
     } catch (PDOException $e) {
+        $conn->rollBack();
         echo "Error: " . $e->getMessage();
+    } finally {
+        $conn = null;
     }
-    $conn = null;
-  }
+}
+
 
   function showorders(){
 
