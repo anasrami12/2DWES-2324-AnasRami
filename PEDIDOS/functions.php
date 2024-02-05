@@ -85,12 +85,11 @@ exit;
 }
 
 function generateOrderNumber($conn, $customernum) {
-    $stmt = $conn->prepare("SELECT COALESCE(MAX(orderNumber), 0) + 1 AS newOrderNumber FROM orders WHERE customerNumber = :customernum");
-    $stmt->bindParam(':customernum', $customernum);
+    $stmt = $conn->prepare("SELECT COALESCE(MAX(orderNumber), 0) + 1 AS newOrderNumber FROM orders;");
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $_SESSION['orderNum'] =$result['newOrderNumber']+1;
+    $_SESSION['orderNum'] =$result['newOrderNumber']+2;
     return $result['newOrderNumber'];
 }
 
@@ -381,12 +380,18 @@ function pago(){
 	$moneda="978";
 	$trans="0";
 	$url="";
-	$urlOK="http://www.localhost/pedidos/hecho.php";
-    $urlKO="http://www.localhost/pedidos/mal.html";
+	$urlOK="http://192.168.206.232/pedidos/hecho.php";
+    $urlKO="http://192.168.206.232/pedidos/mal.html";
 	$id=intval($_SESSION['orderNum']);
     echo $id;
 	$amount=strval($_SESSION['pagar']);	
-    $amount = str_replace('.', '', $amount); 
+    if (strpos($amount, '.')) {
+        $amount=explode('.',$amount);
+        $amount[1]= str_pad($amount[1],'2','0', STR_PAD_RIGHT);
+$amount=$amount[0]. $amount[1];
+    }else {
+        $amount = $amount . '00';
+    }
 	// Se Rellenan los campos
 	$miObj->setParameter("DS_MERCHANT_AMOUNT",$amount);
 	$miObj->setParameter("DS_MERCHANT_ORDER",$id);
