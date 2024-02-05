@@ -52,11 +52,13 @@ if (isset($_POST['compra'])) {
 
 }
 if (isset($_POST['confirm'])) {
+    $_SESSION['pagar']=$_SESSION['amount'][0];
     $_SESSION['amount']= array();
    $final=0;
     regexNumber($_POST['checknum']);
    }
 
 ?>
+
 </body>
 </html>

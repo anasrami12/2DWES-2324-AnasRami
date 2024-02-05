@@ -89,7 +89,8 @@ function generateOrderNumber($conn, $customernum) {
     $stmt->bindParam(':customernum', $customernum);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    $_SESSION['orderNum'] =$result['newOrderNumber'];
+
+    $_SESSION['orderNum'] =$result['newOrderNumber']+1;
     return $result['newOrderNumber'];
 }
 
@@ -375,10 +376,12 @@ function pago(){
 	$moneda="978";
 	$trans="0";
 	$url="";
-	$urlOKKO="http://localhost/ApiPhpRedsys/ApiRedireccion/redsysHMAC256_API_PHP_7.0.0/ejemploRecepcionaPet.php";
-	$id=$_SESSION['orderNum'];
-	$amount=$_SESSION['amount'];	
-	
+	$urlOK="http://www.localhost/pedidos/hecho.php";
+    $urlKO="http://www.localhost/pedidos/mal.html";
+	$id=intval($_SESSION['orderNum']);
+    echo $id;
+	$amount=strval($_SESSION['pagar']);	
+    $amount = str_replace('.', '', $amount); 
 	// Se Rellenan los campos
 	$miObj->setParameter("DS_MERCHANT_AMOUNT",$amount);
 	$miObj->setParameter("DS_MERCHANT_ORDER",$id);
@@ -387,8 +390,8 @@ function pago(){
 	$miObj->setParameter("DS_MERCHANT_TRANSACTIONTYPE",$trans);
 	$miObj->setParameter("DS_MERCHANT_TERMINAL",$terminal);
 	$miObj->setParameter("DS_MERCHANT_MERCHANTURL",$url);
-	$miObj->setParameter("DS_MERCHANT_URLOK",$urlOKKO);
-	$miObj->setParameter("DS_MERCHANT_URLKO",$urlOKKO);
+	$miObj->setParameter("DS_MERCHANT_URLOK",$urlOK);
+	$miObj->setParameter("DS_MERCHANT_URLKO",$urlKO);
 	
 	//Datos de configuración
 	$version="HMAC_SHA256_V1";
@@ -398,10 +401,11 @@ function pago(){
 	$params = $miObj->createMerchantParameters();
 	$signature = $miObj->createMerchantSignature($kc);
 	echo "<form name='frm' action='https://sis-t.redsys.es:25443/sis/realizarPago' method='POST' target='_blank'>
-        <input type='text'  name='Ds_SignatureVersion' value='<?php echo $version; ?>'/></br>
-        <input type='text'  name='Ds_MerchantParameters' value='<?php echo $params; ?>'/></br>
-        <input type='text'  name='Ds_Signature' value='<?php echo $signature; ?>'/></br>
-        <input type='submit' value='Realizar Pago' >
-        </form>";
+        <input type='text' name='Ds_SignatureVersion' value='$version'/></br>
+        <input type='text' name='Ds_MerchantParameters' value='$params'/></br>
+        <input type='text' name='Ds_Signature' value='$signature'/></br>
+        <input type='submit' value='Realizar Pago'>
+      </form>";
+        var_dump( $_SESSION['pagar']);
 }
 ?>
