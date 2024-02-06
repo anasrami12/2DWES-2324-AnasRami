@@ -141,11 +141,6 @@ function regexNumber($cadena){
         $customernum = $_SESSION['customernum'];
         generateOrderNumber($conn,$customernum);
         pago();
-        /*dates();
-        
-        foreach ($_SESSION['carrito'] as $clave => $infoProducto) {     
-            decreaseStock($infoProducto['product'],$infoProducto['quantity']);
-                }*/
     }
 }
 
@@ -157,12 +152,9 @@ function addcarrito() {
     $product = $_POST['selprod'];
     $quantity = $_POST['cantidad'];
 
-    // Verificar si el producto ya está en el carrito
     if (isset($_SESSION['carrito'][$product])) {
-        // Si el producto ya está en el carrito, sumar la cantidad existente
         $_SESSION['carrito'][$product]['quantity'] += $quantity;
     } else {
-        // Si el producto no está en el carrito, agregarlo con la cantidad proporcionada
         $productinfo = array(
             'product' => $product,
             'quantity' => $quantity
