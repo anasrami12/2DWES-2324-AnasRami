@@ -80,12 +80,12 @@ function borrarcarrito(){
 function consultarAlquileres(){
     datadb();
     $conexion = conectar();
-    $sql = "SELECT matricula FROM ralquileres WHERE idcliente=:idcliente ";
+    $sql = "SELECT COUNT(matricula) AS total FROM ralquileres WHERE idcliente=:idcliente";
     $consulta = $conexion->prepare($sql);
     $consulta->bindParam(':idcliente', $_SESSION['idcliente']);
     $consulta->execute();
-    $info = $consulta->fetchAll(PDO::FETCH_ASSOC);
-    $cantalquiler=count($info);
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    $cantalquiler = $resultado['total'];
     $conexion = NULL;
     return $cantalquiler;
 }
