@@ -1,14 +1,18 @@
 <?php
+include "./db/datadb.php";
 function checklog(){
     session_start();
     if (!isset($_SESSION['nombre'])) {
         header('Location: nologin.html');
         exit;
      }else{
-        echo "Bienvenido/a: ". $_SESSION['nombre'];
+        datoscliente();
+     }
+}
+function datoscliente(){
+    echo "Bienvenido/a: ". $_SESSION['nombre'];
     echo "<br>";
     echo "Identificador Cliente: ". $_SESSION['idcliente'];
-     }
 }
 
 function logoff(){
