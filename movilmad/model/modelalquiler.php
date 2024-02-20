@@ -21,7 +21,7 @@ function showproducts() {
 }
 
 function pintarproductos($matricula, $marca, $modelo) {
-    echo "<option value='$matricula'>$marca $modelo </option>";
+    echo "<option value='$matricula'>$matricula $marca $modelo </option>";
 }
 function checklog(){
     session_start();
@@ -80,7 +80,7 @@ function borrarcarrito(){
 function consultarAlquileres(){
     datadb();
     $conexion = conectar();
-    $sql = "SELECT COUNT(matricula) AS total FROM ralquileres WHERE idcliente=:idcliente";
+    $sql = "SELECT COUNT(matricula) AS total FROM ralquileres WHERE idcliente=:idcliente AND fecha_devolucion IS NULL";
     $consulta = $conexion->prepare($sql);
     $consulta->bindParam(':idcliente', $_SESSION['idcliente']);
     $consulta->execute();
@@ -89,28 +89,63 @@ function consultarAlquileres(){
     $conexion = NULL;
     return $cantalquiler;
 }
+
+function estadoVehiculo($matricula){
+    datadb();   
+
+     try {
+        $conexion = conectar();
+        $sql = "UPDATE rvehiculos 
+        SET disponible = 'N'
+        WHERE matricula = :matricula;        
+        ";
+        $consulta = $conexion->prepare($sql);
+        $consulta->bindParam(':matricula', $matricula);
+
+        $consulta->execute();
+        $conexion = NULL;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
 function comprobarAlquiler(){
     $vehiculosalquilados=consultarAlquileres();
-    $cantidadAlquilar=$_SESSION['carrito'];
-    $aux = $vehiculosalquilados+$cantidadAlquilar;
+    $cantidadAlquilar= count($_SESSION['carrito']);
+    $aux = intval($vehiculosalquilados) + intval($cantidadAlquilar);
+    echo $vehiculosalquilados;
+    echo $cantidadAlquilar;
+    echo $aux;
     if ($aux>3) {
         echo "<script>alert('La cantidad maxima en alquiler es de 3 vehiculos, devuelva vehiculos para poder alquilar mas')</script>";
 
     }else {
-        
+        foreach ($_SESSION['carrito'] as $key) {
+            insertarAlquiler($key['matricula']);
+            $_SESSION['carrito']=array();
+        }
     }
 }
-function insertarAlquiler(){
+function insertarAlquiler($matricula){
     datadb();
     $conexion = conectar();
-    $sql = "INSERT INTO ralquileres (idcliente,matricula,fecha_alquiler,preciototal)
-    VALUES ()";
+    $sql = "INSERT INTO ralquileres (idcliente,matricula,fecha_alquiler)
+    VALUES (:idcliente,:matricula,NOW())";
     $consulta = $conexion->prepare($sql);
     $consulta->bindParam(':idcliente', $_SESSION['idcliente']);
+    $consulta->bindParam(':matricula', $matricula);
     $consulta->execute();
-    $info = $consulta->fetchAll(PDO::FETCH_ASSOC);
-    $cantalquiler=count($info);
+echo 'Alquiler realizado con exito';
     $conexion = NULL;
-    return $cantalquiler;
 }
+function logoff(){
+    session_unset();
+    session_destroy();
+    $cookies = $_COOKIE;
+    foreach ($cookies as $cookie_name => $cookie_value) {
+        setcookie($cookie_name, '', time() - 3600, '/');
+    }
+    header('Location: nologin.html');
+    exit;
+    }
 ?>

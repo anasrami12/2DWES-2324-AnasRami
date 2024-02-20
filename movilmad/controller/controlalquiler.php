@@ -13,5 +13,11 @@ if (isset($_POST['agregar'])) {
  }
  if (isset($_POST['alquilar'])) {
   comprobarAlquiler();
+  $matricula=$_POST['vehiculos'];
+  estadoVehiculo($matricula);
+
+ }
+ if (isset($_POST['logoff'])) {
+  logoff();
  }
 ?>

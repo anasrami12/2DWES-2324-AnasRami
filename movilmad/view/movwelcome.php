@@ -19,7 +19,7 @@
 	<form method="post">
 		<input type="button" value="Alquilar Vehículo" onclick="window.location.href='./alquiler.php'" class="btn btn-warning disabled">
 		<input type="button" value="Consultar Alquileres" onclick="window.location.href=''" class="btn btn-warning disabled">
-		<input type="button" value="Devolver Vehículo" onclick="window.location.href=''" class="btn btn-warning disabled">
+		<input type="button" value="Devolver Vehículo" onclick="window.location.href='./devolucion.php'" class="btn btn-warning disabled">
 		</br></br>
 		
 		
