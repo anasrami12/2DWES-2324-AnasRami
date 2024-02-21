@@ -60,7 +60,7 @@ foreach ($_SESSION['carrito'] as $key ) {
     echo "</ul>";
     echo "Producto añadido satisfactoriamente";
     }
-   
+   var_dump($_SESSION['carrito']);
 }
 function consultarNombre($matricula){
     datadb();
@@ -92,11 +92,12 @@ function consultarAlquileres(){
 
 function estadoVehiculo($matricula){
     datadb();   
-
+echo $matricula;
+echo "HOLA";
      try {
         $conexion = conectar();
         $sql = "UPDATE rvehiculos 
-        SET disponible = 'N'
+        SET disponible ='N'
         WHERE matricula = :matricula;        
         ";
         $consulta = $conexion->prepare($sql);

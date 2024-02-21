@@ -8,7 +8,7 @@ echo "<br>";
 if (isset($_POST['devolver'])) {
     $matricula=$_POST['vehiculos'];
     finalquiler($matricula);
-    estadoVehiculo();
+    estadoVehiculo($matricula);
     pago();
 }
 

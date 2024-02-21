@@ -107,7 +107,7 @@ function calcularPago(){
     $conexion = conectar();
     $sql = "SELECT TIMESTAMPDIFF(MINUTE, fecha_alquiler, fecha_devolucion) AS minutos
     FROM ralquileres
-    WHERE idcliente=:idcliente AND fechahorapago  IS NULL AND matricula=:matricula;
+    WHERE idcliente=:idcliente AND fechahorapago  IS NULL  AND matricula=:matricula;
     ";
     $consulta = $conexion->prepare($sql);
     $consulta->bindParam(':idcliente', $_SESSION['idcliente']);
@@ -130,7 +130,6 @@ function pago(){
     $urlKO = "http://192.168.206.232/movilmad/mal.php";
     $id = time();
     $amount = strval($_SESSION['pago']);
-
     if (strpos($amount, '.')) {
         $amount = explode('.', $amount);
         $amount[1] = str_pad($amount[1], '2', '0', STR_PAD_RIGHT);

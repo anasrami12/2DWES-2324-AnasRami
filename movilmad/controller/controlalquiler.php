@@ -1,6 +1,7 @@
 <?php
 include_once './model/modelalquiler.php';
 checklog();
+
 showproducts();
 echo "<br>";
 echo "<br>";
@@ -13,8 +14,11 @@ if (isset($_POST['agregar'])) {
  }
  if (isset($_POST['alquilar'])) {
   comprobarAlquiler();
-  $matricula=$_POST['vehiculos'];
-  estadoVehiculo($matricula);
+  foreach ($_SESSION['carrito'] as $key) {
+   echo $key['matricula'];
+   estadoVehiculo($key['matricula']);
+  }
+  
 
  }
  if (isset($_POST['logoff'])) {
